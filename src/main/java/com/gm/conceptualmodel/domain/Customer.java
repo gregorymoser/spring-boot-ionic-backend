@@ -12,9 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gm.conceptualmodel.domain.enums.CustomerType;
 
 @Entity
@@ -30,6 +30,7 @@ public class Customer implements Serializable{
 	private String pps;
 	private Integer type;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "customer")
 	private List <Address> addresses = new ArrayList<>();
 	
