@@ -4,12 +4,15 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gm.conceptualmodel.domain.enums.PaymentStatus;
 
 @Entity
 public class BillPayment extends Payment {
 
 	private static final long serialVersionUID = 1L;
+
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dueDate;
 	private Date payday;
 
@@ -38,6 +41,5 @@ public class BillPayment extends Payment {
 	public void setPayday(Date payday) {
 		this.payday = payday;
 	}
-	
-	
+
 }
