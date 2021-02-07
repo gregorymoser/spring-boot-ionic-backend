@@ -14,6 +14,7 @@ import com.gm.conceptualmodel.domain.CardPayment;
 import com.gm.conceptualmodel.domain.Category;
 import com.gm.conceptualmodel.domain.City;
 import com.gm.conceptualmodel.domain.Customer;
+import com.gm.conceptualmodel.domain.ItemRequest;
 import com.gm.conceptualmodel.domain.Payment;
 import com.gm.conceptualmodel.domain.Product;
 import com.gm.conceptualmodel.domain.Request;
@@ -24,6 +25,7 @@ import com.gm.conceptualmodel.repositories.AddressRepository;
 import com.gm.conceptualmodel.repositories.CategoryRepository;
 import com.gm.conceptualmodel.repositories.CityRepository;
 import com.gm.conceptualmodel.repositories.CustomerRepository;
+import com.gm.conceptualmodel.repositories.ItemRequestRepository;
 import com.gm.conceptualmodel.repositories.PaymentRepository;
 import com.gm.conceptualmodel.repositories.ProductRepository;
 import com.gm.conceptualmodel.repositories.RequestRepository;
@@ -48,6 +50,8 @@ public class ConceptualmodelApplication implements CommandLineRunner {
 	private RequestRepository requestRepository;
 	@Autowired
 	private PaymentRepository paymentRepository;
+	@Autowired
+	private ItemRequestRepository itemRequestRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ConceptualmodelApplication.class, args);
@@ -110,5 +114,18 @@ public class ConceptualmodelApplication implements CommandLineRunner {
 
 		requestRepository.saveAll(Arrays.asList(req1, req2));
 		paymentRepository.saveAll(Arrays.asList(pay1, pay2));
+		
+		ItemRequest ir1 = new ItemRequest(req1, p1, 0.0, 1, 2000.00);
+		ItemRequest ir2 = new ItemRequest(req1, p3, 0.0, 2, 80.00);
+		ItemRequest ir3 = new ItemRequest(req2, p2, 100.0, 1, 800.00);
+		
+		req1.getItems().addAll(Arrays.asList(ir1, ir2));
+		req2.getItems().addAll(Arrays.asList(ir3));
+		
+		p1.getItems().addAll(Arrays.asList(ir1));
+		p2.getItems().addAll(Arrays.asList(ir3));
+		p3.getItems().addAll(Arrays.asList(ir2));
+		
+		itemRequestRepository.saveAll(Arrays.asList(ir1, ir2, ir3));
 	}
 }

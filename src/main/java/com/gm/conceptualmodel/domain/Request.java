@@ -2,6 +2,8 @@ package com.gm.conceptualmodel.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -32,7 +35,10 @@ public class Request implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="delivery_address_id")
 	private Address deliveryAddress;
-
+	
+	@OneToMany(mappedBy = "id.request")
+	private Set<ItemRequest> items = new HashSet<>();
+	
 	public Request() {
 		super();
 	}
@@ -83,6 +89,14 @@ public class Request implements Serializable {
 
 	public void setDeliveryAddress(Address deliveryAddress) {
 		this.deliveryAddress = deliveryAddress;
+	}
+	
+	public Set<ItemRequest> getItems() {
+		return items;
+	}
+
+	public void setItems(Set<ItemRequest> items) {
+		this.items = items;
 	}
 
 	@Override
