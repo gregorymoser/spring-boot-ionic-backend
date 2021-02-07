@@ -18,10 +18,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gm.conceptualmodel.domain.enums.CustomerType;
 
 @Entity
-public class Customer implements Serializable{
-	
+public class Customer implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -29,14 +29,17 @@ public class Customer implements Serializable{
 	private String email;
 	private String pps;
 	private Integer type;
-	
+
 	@JsonManagedReference
 	@OneToMany(mappedBy = "customer")
-	private List <Address> addresses = new ArrayList<>();
-	
+	private List<Address> addresses = new ArrayList<>();
+
 	@ElementCollection
-	@CollectionTable(name="PHONE")
-	private Set <String> phones = new HashSet<>();
+	@CollectionTable(name = "PHONE")
+	private Set<String> phones = new HashSet<>();
+	
+	@OneToMany(mappedBy = "customer")
+	private List<Request> requests = new ArrayList<>();
 
 	public Customer() {
 		super();
@@ -105,6 +108,14 @@ public class Customer implements Serializable{
 
 	public void setPhones(Set<String> phones) {
 		this.phones = phones;
+	}
+
+	public List<Request> getRequests() {
+		return requests;
+	}
+
+	public void setRequests(List<Request> requests) {
+		this.requests = requests;
 	}
 
 	@Override
