@@ -1,5 +1,6 @@
 package com.gm.conceptualmodel.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,9 @@ public class CategoryService {
 			throw new DataIntegrityException("it is not possible to delete a category that has products");
 		}
 		
+	}
+	
+	public List <Category> findAll(){
+		return repo.findAll();
 	}
 }
