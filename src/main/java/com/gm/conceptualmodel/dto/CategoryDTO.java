@@ -5,6 +5,9 @@ import java.io.Serializable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.gm.conceptualmodel.domain.Category;
 
@@ -15,6 +18,9 @@ public class CategoryDTO implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@NotEmpty(message="Mandatory filling")
+	@Length(min=5,max=80, message="The length must be between 5 and 80 characters")
 	private String name;
 	
 	public CategoryDTO() {
